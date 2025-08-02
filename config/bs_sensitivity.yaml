@@ -1,0 +1,28 @@
+# @package _global_
+defaults:
+  - _self_
+  - path: local
+
+sweep_name: "sensitivity_bs"
+
+verbose_level: ${path.verbose_level}
+
+hydra:
+  run:
+    dir: ${path.base_path}/outputs/${now:%Y-%m-%d_%H-%M-%S}
+  sweep:
+    dir: ${path.base_path}/outputs/${now:%Y-%m-%d_%H-%M-%S}
+    subdir: ${hydra.job.num}
+  sweeper:
+    params:
+      +objective: ackley10D,rastrigin10D,ackley2D,rastrigin2D
+      +acquisition: ucb,logei
+      +optimizer: boni_bsnonoise
+      optimizer.init.model_kwargs.heuristic_hyperparameters.beam_width: 1,2,3,5,10
+      +seed: 0,1,2,3,4,5,6,7,8,9
+
+# Override the name to include beam width
+name: ${optimizer.name}_${objective.name}_${objective.dim}_${acquisition.acquisition_func}_beam${optimizer.init.model_kwargs.heuristic_hyperparameters.beam_width}_${seed}
+
+# Override save directory to include beam width
+save_dir: ${path.base_path}/results/${sweep_name}/${name} 

@@ -1,0 +1,5 @@
+package: analytic
+acquisition_func: LogExpectedImprovement
+acqf_kwargs:
+  maximize: false
+  best_f: 0.0

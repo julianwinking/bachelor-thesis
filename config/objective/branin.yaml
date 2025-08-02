@@ -1,0 +1,13 @@
+# Branin objective function configuration
+name: "branin"
+dim: 2
+
+# Initialization parameters for Branin
+init:
+  _target_: botorch.test_functions.synthetic.Branin
+  noise_std: null
+  negate: false
+
+# Optimization parameters
+n_initial: 2
+max_evals: 20

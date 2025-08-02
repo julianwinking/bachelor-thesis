@@ -1,0 +1,13 @@
+# Ackley2D objective function configuration
+name: "ackley2D"
+dim: 2
+
+# Initialization parameters for Ackley2D class
+init:
+  _target_: botorch.test_functions.synthetic.Ackley
+  noise_std: null
+  negate: false
+
+# Optimization parameters
+n_initial: 10
+max_evals: 100

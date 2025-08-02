@@ -1,0 +1,14 @@
+# Rastrigin20D objective function configuration
+name: "rastrigin20D"
+dim: 20
+
+# Initialization parameters for Rastrigin with 20 dimensions
+init:
+  _target_: botorch.test_functions.synthetic.Rastrigin
+  dim: 20
+  noise_std: null
+  negate: false
+
+# Optimization parameters
+n_initial: 40
+max_evals: 1000

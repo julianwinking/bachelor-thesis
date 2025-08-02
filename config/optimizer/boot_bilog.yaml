@@ -1,0 +1,20 @@
+name: boot_bilog
+
+init:
+  _target_: src.optim.VanillaBO
+
+  model_class:
+    _target_: hydra.utils.get_class
+    path: src.models.VanillaGP
+
+  model_kwargs:
+    outcome_transform:
+      _target_: botorch.models.transforms.outcome.Bilog 
+
+  acqf_class:
+    _target_: hydra.utils.get_class
+    path: botorch.acquisition.${acquisition.package}.${acquisition.acquisition_func}
+
+  acqf_kwargs: ${acquisition.acqf_kwargs}
+
+  verbose: true

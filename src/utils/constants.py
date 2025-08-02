@@ -1,0 +1,1 @@
+NOISE_JITTER = 1e-6

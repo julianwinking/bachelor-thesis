@@ -1,0 +1,37 @@
+# @package _global_
+defaults:
+  - override /hydra/launcher: submitit_slurm
+
+hydra:
+  callbacks:
+    log_job_return:
+      _target_: hydra.experimental.callbacks.LogJobReturnCallback
+  launcher: # https://hydra.cc/docs/plugins/submitit_launcher/
+    setup:
+      [
+        "module purge 2>&1",
+        "echo '# Loading toolchain'",
+        "module load GCCcore/13.2.0 2>&1",
+        "echo '# Loading Python'",
+        "module load Python/3.11.5 2>&1",
+        "echo '# List of modules:'",
+        "module list 2>&1",
+        "echo '# Current working directory:'",
+        "pwd",
+        "echo '# List of folders in pwd:'",
+        "ls",
+        "echo '# Activate venv!'",
+        ". .venv/bin/activate",
+        "echo '# Which python:'",
+        "which python",
+      ]
+    submitit_folder: ${hydra.sweep.dir}/.submitit/%j
+    cpus_per_task: 1
+    array_parallelism: 300
+    timeout_min: 60
+    #timeout_min: 5000 # 83 hours
+    mem_per_cpu: 2G
+    tasks_per_node: 1
+    partition: c23ms
+    constraint: Rocky9
+    #account: p0021919

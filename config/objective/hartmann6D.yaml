@@ -1,0 +1,14 @@
+# Hartmann6D objective function configuration
+name: "hartmann6D"
+dim: 6
+
+# Initialization parameters for Hartmann with 6 dimensions
+init:
+  _target_: botorch.test_functions.synthetic.Hartmann
+  dim: 6
+  noise_std: null
+  negate: false
+
+# Optimization parameters
+n_initial: 6
+max_evals: 70

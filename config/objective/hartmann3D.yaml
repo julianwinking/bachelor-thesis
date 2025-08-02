@@ -1,0 +1,14 @@
+# Hartmann3D objective function configuration
+name: "hartmann3D"
+dim: 3
+
+# Initialization parameters for Hartmann with 3 dimensions
+init:
+  _target_: botorch.test_functions.synthetic.Hartmann
+  dim: 3
+  noise_std: null
+  negate: false
+
+# Optimization parameters
+n_initial: 3
+max_evals: 30

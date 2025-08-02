@@ -1,0 +1,4 @@
+# path configuration
+name: base
+base_path: /home/gz017456/bachelor-thesis
+verbose_level: 1

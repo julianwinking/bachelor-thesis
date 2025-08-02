@@ -1,0 +1,14 @@
+# Rastrigin2D objective function configuration
+name: "rastrigin2D"
+dim: 2
+
+# Initialization parameters for Rastrigin with 2 dimensions
+init:
+  _target_: botorch.test_functions.synthetic.Rastrigin
+  dim: 2
+  noise_std: null
+  negate: false
+
+# Optimization parameters
+n_initial: 10
+max_evals: 100

@@ -1,0 +1,28 @@
+# @package _global_
+defaults:
+  - _self_
+  - path: local
+
+sweep_name: "sensitivity_ils"
+
+verbose_level: ${path.verbose_level}
+
+hydra:
+  run:
+    dir: ${path.base_path}/outputs/${now:%Y-%m-%d_%H-%M-%S}
+  sweep:
+    dir: ${path.base_path}/outputs/${now:%Y-%m-%d_%H-%M-%S}
+    subdir: ${hydra.job.num}
+  sweeper:
+    params:
+      +objective: rastrigin10D,ackley2D,ackley10D,rastrigin2D
+      +acquisition: logei,ucb
+      +optimizer: boni_ilsstandardize
+      optimizer.init.model_kwargs.heuristic_hyperparameters.perturbation_size: 0.01,0.05,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0
+      +seed: 0,1,2,3,4,5,6,7,8,9
+
+# Override the name to include perturbation size
+name: ${optimizer.name}_${objective.name}_${objective.dim}_${acquisition.acquisition_func}_pert${optimizer.init.model_kwargs.heuristic_hyperparameters.perturbation_size}_${seed}
+
+# Override save directory to include perturbation size
+save_dir: ${path.base_path}/results/${sweep_name}/${name} 

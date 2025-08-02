@@ -1,0 +1,23 @@
+name: boni_standardizezeros
+
+init:
+  _target_: src.optim.VanillaBO
+
+  model_class:
+    _target_: hydra.utils.get_class
+    path: src.models.BaseNoiseInjectionGP
+
+  model_kwargs:
+    outcome_transform: null
+    initial_injection: "no_noise"
+
+  preprocessing_transform:
+    _target_: src.transformations.StandardizeTransform
+
+  acqf_class:
+    _target_: hydra.utils.get_class
+    path: botorch.acquisition.${acquisition.package}.${acquisition.acquisition_func}
+
+  acqf_kwargs: ${acquisition.acqf_kwargs}
+
+  verbose: true

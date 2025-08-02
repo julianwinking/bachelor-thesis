@@ -1,0 +1,30 @@
+name: boni_standardizegradientbinary
+
+init:
+  _target_: src.optim.VanillaBO
+
+  model_class:
+    _target_: hydra.utils.get_class
+    path: src.models.HeuristicNoiseInjectionGP
+
+  model_kwargs:
+    outcome_transform: null
+    initial_injection: "no_noise"
+    heuristic_algorithm: "binarygradient_mll"
+    heuristic_hyperparameters:
+      learning_rate: 0.01
+      n_iterations: 300
+      scheduler_factor: 0.8
+      scheduler_patience: 10
+      early_stop_patience: 20
+
+  preprocessing_transform:
+    _target_: src.transformations.StandardizeTransform
+
+  acqf_class:
+    _target_: hydra.utils.get_class
+    path: botorch.acquisition.${acquisition.package}.${acquisition.acquisition_func}
+
+  acqf_kwargs: ${acquisition.acqf_kwargs}
+
+  verbose: true

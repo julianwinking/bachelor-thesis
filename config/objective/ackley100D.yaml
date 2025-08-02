@@ -1,0 +1,14 @@
+# Ackley100D objective function configuration
+name: "ackley100D"
+dim: 100
+
+# Initialization parameters for Ackley with 100 dimensions
+init:
+  _target_: botorch.test_functions.synthetic.Ackley
+  dim: 100
+  noise_std: null
+  negate: false
+
+# Optimization parameters
+n_initial: 200
+max_evals: 5000
