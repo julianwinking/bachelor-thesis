@@ -1,6 +1,21 @@
-# Bachelor Thesis
+# Reducing the Influence of Model Mismatch in Bayesian Optimization Through Targeted Noise Injection
 
-This repository provides code for implementing **targeted noise injection** in Bayesian Optimization (BO), a technique developed to improve optimization under model mismatch. The method treats observation noise as a tunable modeling parameter and adaptively down-weights misleading data points using a novel **multiplicative Gaussian likelihood**.
+This repository accompanies my Bachelor's thesis, written at the Institute of Data Science in Mechanical Engineering under the supervision of Paul Brunzema and Prof. Sebastian Trimpe. It provides code for implementing **targeted noise injection** in Bayesian Optimization (BO), a technique developed to improve optimization under model mismatch. The method treats observation noise as a tunable modeling parameter and adaptively down-weights misleading data points using a novel **multiplicative Gaussian likelihood**.
+
+<p align="center">
+  <img src="plots/noise_injection_comparison.png" alt="Noise injection comparison" height="250" />
+</p>
+<p align="center"><small>
+  This figure illustrates the effect of trust region noise injection. Left: A
+  standard GP, which weights all data uniformly, produces a
+  compromised posterior fit within the active trust region (gray area)
+  due to influential outlying observations. Right: The proposed method
+  injects noise into observations outside the trust region, down-weighting
+  their influence. This results in a more accurate local posterior and a
+  more focused acquisition function. Panels depict the GP posterior
+  (top), per-point noise allocation λi (middle), and the resulting EI
+  acquisition function (bottom).
+</small></p>
 
 The code supports several strategies for noise optimization, including **gradient-based tuning**, **iterated local search**, and a **beam search framework**. A **trust region-guided variant** further restricts noise injection to regions outside the current search area, helping the model focus on relevant input space regions.
 
